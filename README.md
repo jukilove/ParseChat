@@ -9,7 +9,7 @@ Time spent: **X** hours spent in total
 The following **required** user stories are complete:
 
 - [ ] User can sign up and sign in to the login screen (+1pt)
-- [ ] User sees alerts for login exceptions, i.e. "account already exists", "wrong credentials", etc. (+1pt)
+- [x] User sees alerts for login exceptions, i.e. "account already exists", "wrong credentials", etc. (+1pt)
 - [ ] User can compose and send chat messages (+2pt)
 - [ ] User can view a list of chat messages in chronological order (+2pt)
 - [ ] Automatically Adjust Cell Size to Fit Text (+1pt)
@@ -47,7 +47,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright [2018] [E.O]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
