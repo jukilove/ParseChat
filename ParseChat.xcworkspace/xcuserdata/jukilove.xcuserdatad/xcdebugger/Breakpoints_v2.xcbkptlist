@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ParseChat/Login_SignUp/LoginScreenViewController.swift"
-            timestampString = "541291984.282445"
+            timestampString = "541300400.403789"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ParseChat/Login_SignUp/LoginScreenViewController.swift"
-            timestampString = "541291984.283036"
+            timestampString = "541300400.404294"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "onLogin(_:)"
             landmarkType = "7">
          </BreakpointContent>

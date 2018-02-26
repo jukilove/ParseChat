@@ -20,34 +20,10 @@ class LoginScreenViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
     @IBAction func onLogin(_ sender: Any) {
         
         print("User tapped the login button")
-       /*
-        let username = usernameField.text ?? ""
-        let password = passwordField.text ?? ""
-     
-        PFUser.logInWithUsername(inBackground: username, password: password) { (user: PFUser?, error: Error?) in
-            if let error = error {
-                let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                    // handle response here.
-                }
-                    // add the OK action to the alert controller
-                    alertController.addAction(OKAction)
-                    self.present(alertController, animated: true) {
-                        // optional code for what happens after the alert controller has finished presenting
-                    }
-                    
-                } else {
-    
-                self.performSegue(withIdentifier: "LoginParsePageSegue", sender: self)
-                print("User logged in successfully")
-            }
-        }
-    }
- */
+       
      PFUser.logInWithUsername(inBackground: usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: Error?) in
             if user != nil {
                 self.usernameField.text = ""
@@ -75,7 +51,5 @@ class LoginScreenViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
 
 }

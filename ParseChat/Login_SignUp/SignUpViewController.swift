@@ -31,14 +31,7 @@ class SignUpViewController: UIViewController {
     }
     
     func registerUser() {
-    //initialize a user object
-        let newUser = PFUser()
-        
-        //set user properties
-        newUser.username = usernameField.text
-        newUser.password = passwordField.text
-        newUser.email = emailField.text
-        
+  
         if((usernameField.text?.isEmpty)! || (passwordField.text?.isEmpty)! || (emailField.text?.isEmpty)! ) {
             let alertController = UIAlertController(title: "Sign Up Error", message: "Missing Username/Password/Email", preferredStyle: .alert)
             let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
@@ -51,50 +44,35 @@ class SignUpViewController: UIViewController {
             }
         } else {
             // call sign up function on the object
+            //initialize a user object
+            let newUser = PFUser()
+            
+            //set user properties
+            newUser.username = usernameField.text
+            newUser.password = passwordField.text
+            newUser.email = emailField.text
+            
             newUser.signUpInBackground { (success: Bool, error: Error?) in
-                if let error = error {
-                    let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                    let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                        // handle response here.
-                    }
-                    // add the OK action to the alert controller
-                    alertController.addAction(OKAction)
-                    self.present(alertController, animated: true) {
-                        // optional code for what happens after the alert controller has finished presenting
-                    }
-                   
+                if success {
+                    print("New User Created")
+                    self.performSegue(withIdentifier: "signupLoginBackSegue", sender: self)
                 } else {
-                    self.performSegue(withIdentifier: "signupLoginBackSegue", sender: nil)
-                    print("User Registered successfully")
-                    // manually segue to logged in view
+                   print("Error from SignUpViewController func registerUser()\(error!.localizedDescription)")
+                }
+                let alertController = UIAlertController(title: "Error Siging In", message: "\(String(describing: error!.localizedDescription))\nPlease try Again!", preferredStyle: .alert)
+                let tryAgainAction = UIAlertAction(title: "Try Again", style: .default, handler: { (alert) in
+                    alertController.dismiss(animated: true, completion: nil)
+                })
+                alertController.addAction(tryAgainAction)
+                self.present(alertController, animated: true, completion: nil)
+                
                 }
             }
         }
-    }
-        
-/*
-        //call sign up function on the object
-        newUser.signUpInBackground { (success: Bool, error: Error?) in
-            if let error = error {
-               
-                print(error.localizedDescription)
-                
-                if error._code == 202 {
-                    print("The Username \(self.usernameField.text!) is taken")
-                }
-                
-            } else {
-                print("User Register Successfully")
-                //manaully segue to logged in view
-                self.performSegue(withIdentifier: "signupLoginBackSegue", sender: nil)
-            }
-        }
-    }
-*/
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }

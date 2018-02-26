@@ -14,12 +14,18 @@ class ParseChatViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var chatMessageField: UITextField!
     @IBOutlet weak var chatTableView: UITableView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var messages : [PFObject] = []
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(ParseChatViewController.didPullToRefresh(_:)), for: .valueChanged)
+        chatTableView.insertSubview(refreshControl, at: 0)
         
         chatTableView.dataSource = self
         chatTableView.delegate = self
@@ -28,8 +34,10 @@ class ParseChatViewController: UIViewController, UITableViewDelegate, UITableVie
         chatTableView.rowHeight = UITableViewAutomaticDimension
         chatTableView.estimatedRowHeight = 50
         
-       
-        
+    }
+    
+    @objc func didPullToRefresh(_ refreshControl: UIRefreshControl){
+        retrieveData()
     }
 
 
@@ -61,7 +69,13 @@ class ParseChatViewController: UIViewController, UITableViewDelegate, UITableVie
                 print(error?.localizedDescription ?? "Error")
             }
         }
+        //Reload your table view data
         self.chatTableView.reloadData()
+        //Stop activityIndicator
+        self.activityIndicator.stopAnimating()
+        //Stop Refreshing
+        self.refreshControl.endRefreshing()
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,18 +89,29 @@ class ParseChatViewController: UIViewController, UITableViewDelegate, UITableVie
         if let user = message["user"] as? PFUser {
             cell.userNameLable.text = user.username
         } else {
-            cell.userNameLable.text = "Anonymous"
+            cell.userNameLable.text = "🤖"
         }
         return cell
     }
         
         
+    @IBAction func onLogout(_ sender: Any) {
+        print("Tapped logout button")
+        //log the user out
+        PFUser.logOutInBackground { (error: Error?) in
+            if error == nil {
+                print("Successful logout")
+                self.performSegue(withIdentifier: "logoutSegue", sender: nil)
+            } else {
+                print("Error Logging Out!")
+            }
+        }
         
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
 
 }
